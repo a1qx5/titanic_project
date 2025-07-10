@@ -5,6 +5,7 @@ import os
 
 def load_data_from_sqlite(db_path, table_name="passengers"):
     """Connects to the SQLite database and returns it in a pandas df"""
+
     conn = sqlite3.connect(db_path)
     df = pd.read_sql_query(f"SELECT * FROM {table_name}", conn)
     conn.close()
@@ -13,20 +14,22 @@ def load_data_from_sqlite(db_path, table_name="passengers"):
 
 
 def clean_data(df):
-    
+    """Drops the columns that are not useful for modelling,
+    fills missing values, and encodes categorical variables."""
+
     # drop cols that are not useful for modelling
     df = df.drop(columns=["PassengerId", "Name", "Ticket", "Cabin"])
     
     # handle missing age by filling with the median
-    # df["Age"].fillna(df["Age"].median(), inplace=True)
     df["Age"] = df["Age"].fillna(df["Age"].median())
     
     # drop rows where embarked is missing (only 2)
     df.dropna(subset=["Embarked"], inplace=True)
     
     # encode sex: male -> 0 female -> 1
-    df["Sex"].map({"male" : 0, 
+    df["Sex"] = df["Sex"].map({"male" : 0, 
                    "female" : 1})
+    
     # one-hot encode Embarked (drop first to avoid multicollinearity)
     df = pd.get_dummies(df, columns=["Embarked"], drop_first=True)
     
@@ -35,7 +38,7 @@ def clean_data(df):
 
 if __name__ == "__main__":
     db_path = os.path.join("db", "training_titanic.db")
-    output_path = os.path.join("output", "cleaned_data.csv")
+    output_path = os.path.join("output", "cleaned_training_data.csv")
     
     # load data
     df = load_data_from_sqlite(db_path)

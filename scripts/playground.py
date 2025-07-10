@@ -22,9 +22,6 @@ print(qs.run_query("SELECT COUNT(*) FROM passengers WHERE Sex IS NULL", db_path)
 print("Age NULL: \n")
 print(qs.run_query("SELECT COUNT(*) FROM passengers WHERE Age IS NULL", db_path))
 
-print("Age NULL: \n")
-print(qs.run_query("SELECT COUNT(*) FROM passengers WHERE Age IS NULL", db_path))
-
 print("SibSp NULL: \n")
 print(qs.run_query("SELECT COUNT(*) FROM passengers WHERE SibSp IS NULL", db_path))
 
