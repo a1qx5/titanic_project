@@ -17,5 +17,8 @@ new_data = pd.DataFrame([{
 
 pred = model.predict(new_data)[0]
 prob = model.predict_proba(new_data)[0][1]
-print(pred)
-print(prob)
+print(f"Chance of survival: {prob * 100:.2f}%")
+if prob >= 0.5:
+    print(f"Final Verdict: YOU LIVE (prediction: {pred})")
+else:
+    print(f"Final Verdict: YOU DIE (prediction: {pred})")
