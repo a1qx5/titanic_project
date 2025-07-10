@@ -5,12 +5,12 @@ import numpy as np
 
 model = train_random_forest()
 new_data = pd.DataFrame([{
-    "Pclass": 2,
+    "Pclass": 1,
     "Sex": 0,             # 0 = male, 1 = female (based on your encoding)
     "Age": 20,
     "SibSp": 0,
     "Parch": 2,
-    "Fare": 50.0,
+    "Fare": 500.0,
     "Embarked_Q": 0,
     "Embarked_S": 1
 }])
